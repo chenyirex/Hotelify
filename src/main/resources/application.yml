@@ -1,0 +1,15 @@
+spring:
+  # Probably need to consider dev env later
+  # profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hotelify
+    username: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
