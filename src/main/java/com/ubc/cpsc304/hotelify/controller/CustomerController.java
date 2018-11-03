@@ -4,8 +4,10 @@ import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerResponseDto;
 import com.ubc.cpsc304.hotelify.entity.Customer;
 import com.ubc.cpsc304.hotelify.service.CustomerService;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +28,18 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    @GetMapping
+    private String getCustomer() {
+        return "Hello world";
+    }
+
     @PostMapping
     private CustomerResponseDto createCustomer(@RequestBody CustomerRequestDto customerRequestDto) {
+
+        if (Objects.isNull(customerRequestDto.getUsername()) ||
+                Objects.isNull(customerRequestDto.getPassword())) {
+            // Bad Request
+        }
 
         Customer createdCustomer = this.customerService.createCustomer(customerRequestDto);
 
@@ -35,6 +47,11 @@ public class CustomerController {
     }
 
     private static CustomerResponseDto convertModel(Customer customer) {
-        return null;
+
+        CustomerResponseDto customerResponseDto = new CustomerResponseDto();
+
+        customerResponseDto.setUsername(customer.getUsername());
+
+        return customerResponseDto;
     }
 }
