@@ -2,14 +2,15 @@ spring:
   # Probably need to consider dev env later
   # profiles: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/hotelify
-    username: admin
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:mysql://localhost:3306/hotelify?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: cpsc304
+    password: cpsc_304
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     generate-ddl: true
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        temp:
-          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
