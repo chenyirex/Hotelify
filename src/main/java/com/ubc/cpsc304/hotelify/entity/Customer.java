@@ -3,10 +3,7 @@ package com.ubc.cpsc304.hotelify.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 /**
  * The entity class for customer.
@@ -14,10 +11,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-public class Customer extends BaseEntity {
+public class Customer {
 
     @Id
     @Column(nullable = false, updatable = false, unique = true)
