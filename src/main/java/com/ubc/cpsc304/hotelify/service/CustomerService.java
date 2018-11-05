@@ -2,6 +2,7 @@ package com.ubc.cpsc304.hotelify.service;
 
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
 import com.ubc.cpsc304.hotelify.entity.Customer;
+import com.ubc.cpsc304.hotelify.exception.ConflictException;
 import com.ubc.cpsc304.hotelify.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,12 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public Customer createCustomer(CustomerRequestDto customerRequestDto) {
+    public Customer createCustomer(CustomerRequestDto customerRequestDto) throws ConflictException {
 
         String username = customerRequestDto.getUsername();
 
         if (this.customerRepository.findById(username).isPresent()) {
-            // exception throws
+            throw new ConflictException("Username already exists");
         }
 
         Customer toCreateCustomer = new Customer();
@@ -35,6 +36,6 @@ public class CustomerService {
         toCreateCustomer.setMemberPoint(0);
         toCreateCustomer.setUsername(customerRequestDto.getUsername());
 
-        return customerRepository.save(toCreateCustomer);
+        return this.customerRepository.save(toCreateCustomer);
     }
 }
