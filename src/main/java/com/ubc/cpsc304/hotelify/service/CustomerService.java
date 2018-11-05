@@ -27,15 +27,15 @@ public class CustomerService {
             throw new ConflictException("Username already exists");
         }
 
-        Customer toCreateCustomer = new Customer();
+        Customer newCustomer = new Customer();
 
-        toCreateCustomer.setEmail(customerRequestDto.getEmail());
-        toCreateCustomer.setFirstName(customerRequestDto.getFirstName());
-        toCreateCustomer.setLastName(customerRequestDto.getLastName());
-        toCreateCustomer.setPassword(customerRequestDto.getPassword());
-        toCreateCustomer.setMemberPoint(0);
-        toCreateCustomer.setUsername(customerRequestDto.getUsername());
+        newCustomer.setEmail(customerRequestDto.getEmail());
+        newCustomer.setFirstName(customerRequestDto.getFirstName());
+        newCustomer.setLastName(customerRequestDto.getLastName());
+        newCustomer.setPassword(customerRequestDto.getPassword());
+        newCustomer.setMemberPoint(0);
+        newCustomer.setUsername(customerRequestDto.getUsername());
 
-        return this.customerRepository.save(toCreateCustomer);
+        return this.customerRepository.save(newCustomer);
     }
 }
