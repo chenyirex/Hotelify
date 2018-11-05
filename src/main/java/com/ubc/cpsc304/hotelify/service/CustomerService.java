@@ -7,7 +7,7 @@ import com.ubc.cpsc304.hotelify.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 /**
- * The Serivce layser for {@link com.ubc.cpsc304.hotelify.entity.Customer}
+ * The service layer for {@link com.ubc.cpsc304.hotelify.entity.Customer}
  * Created by ao on 2018-10-31
  */
 @Service
