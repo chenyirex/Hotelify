@@ -3,8 +3,8 @@ package com.ubc.cpsc304.hotelify.controller;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerResponseDto;
 import com.ubc.cpsc304.hotelify.entity.Customer;
+import com.ubc.cpsc304.hotelify.exception.ConflictException;
 import com.ubc.cpsc304.hotelify.service.CustomerService;
-import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,12 +34,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    private CustomerResponseDto createCustomer(@RequestBody CustomerRequestDto customerRequestDto) {
-
-        if (Objects.isNull(customerRequestDto.getUsername()) ||
-                Objects.isNull(customerRequestDto.getPassword())) {
-            // Bad Request
-        }
+    private CustomerResponseDto createCustomer(@RequestBody CustomerRequestDto customerRequestDto)
+            throws ConflictException {
 
         Customer createdCustomer = this.customerService.createCustomer(customerRequestDto);
 
