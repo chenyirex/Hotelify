@@ -1,8 +1,10 @@
 package com.ubc.cpsc304.hotelify.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -32,7 +34,10 @@ public class Customer {
     @Column
     private int memberPoint;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Address address;
+
     // Foreign Key Attributes:
-    // coupon, reservation, address, review
+    // coupon, reservation, review
     // Add those fields later
 }

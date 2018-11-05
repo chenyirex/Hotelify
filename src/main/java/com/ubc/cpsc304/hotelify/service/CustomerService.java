@@ -1,9 +1,12 @@
 package com.ubc.cpsc304.hotelify.service;
 
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
+import com.ubc.cpsc304.hotelify.entity.Address;
 import com.ubc.cpsc304.hotelify.entity.Customer;
+import com.ubc.cpsc304.hotelify.exception.BadRequestException;
 import com.ubc.cpsc304.hotelify.exception.ConflictException;
 import com.ubc.cpsc304.hotelify.repository.CustomerRepository;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +20,17 @@ public class CustomerService {
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
+    }
+
+    public Customer findByUsername(String username) throws BadRequestException {
+
+        Optional<Customer> optionalCustomer = this.customerRepository.findById(username);
+
+        if (optionalCustomer.isPresent()) {
+            return optionalCustomer.get();
+        } else {
+            throw new BadRequestException("username does not exist");
+        }
     }
 
     public Customer createCustomer(CustomerRequestDto customerRequestDto) throws ConflictException {
@@ -37,5 +51,12 @@ public class CustomerService {
         newCustomer.setUsername(customerRequestDto.getUsername());
 
         return this.customerRepository.save(newCustomer);
+    }
+
+    public Customer saveAddress(Customer customer, Address address) {
+
+        customer.setAddress(address);
+
+        return this.customerRepository.save(customer);
     }
 }

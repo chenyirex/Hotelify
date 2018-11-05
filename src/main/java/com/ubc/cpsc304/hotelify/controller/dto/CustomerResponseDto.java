@@ -10,4 +10,12 @@ import lombok.Data;
 public class CustomerResponseDto {
 
     private String username;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
+
+    private AddressDto address;
 }
