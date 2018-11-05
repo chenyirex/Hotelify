@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Created by ao on 2018-11-04
  */
 @Configuration
-public class HotelifyConfiguration implements WebMvcConfigurer {
+public class HotelifyWebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
