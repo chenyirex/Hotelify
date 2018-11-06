@@ -85,21 +85,9 @@ public class AdministratorService {
         return this.administratorRepository.save(tobeUpdatedAdministrator);
     }
 
-    public void deleteAdministrator(AdministratorRequestDto administratorRequestDto)
-            throws NotFoundException {
+    public void deleteAdministrator(String username) throws NotFoundException {
 
-        String username = administratorRequestDto.getUsername();
-
-        if (Objects.isNull(this.administratorRepository.findById(username).orElse(null))) {
-            throw new NotFoundException("Administrator does not exist");
-        }
-
-        Administrator administrator = new Administrator();
-
-        administrator.setUsername(administratorRequestDto.getUsername());
-        administrator.setFirstName(administratorRequestDto.getFirstName());
-        administrator.setLastName(administratorRequestDto.getLastName());
-        administrator.setPassword(administratorRequestDto.getPassword());
+        Administrator administrator = this.getAdministrator(username);
 
         this.administratorRepository.delete(administrator);
     }

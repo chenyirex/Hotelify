@@ -46,11 +46,7 @@ public class CustomerController {
 
         this.customerService.login(authenticationRequestDto);
 
-        AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
-
-        authenticationResponseDto.setUserType(CUSTOMER_TYPE);
-
-        return authenticationResponseDto;
+        return new AuthenticationResponseDto(CUSTOMER_TYPE);
     }
 
     @PostMapping

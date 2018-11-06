@@ -52,11 +52,7 @@ public class AdministratorController {
 
         this.administratorService.login(authenticationRequestDto);
 
-        AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
-
-        authenticationResponseDto.setUserType(ADMINISTRATOR_TYPE);
-
-        return authenticationResponseDto;
+        return new AuthenticationResponseDto(ADMINISTRATOR_TYPE);
     }
 
     @PostMapping
@@ -83,11 +79,9 @@ public class AdministratorController {
         return AdministratorController.convertModel(administrator);
     }
 
-    @DeleteMapping
-    private void deleteAdministrator(
-            @RequestBody AdministratorRequestDto administratorRequestDto
-    ) throws NotFoundException {
-        this.administratorService.deleteAdministrator(administratorRequestDto);
+    @DeleteMapping(path = "/{username}")
+    private void deleteAdministrator(@PathVariable String username) throws NotFoundException {
+        this.administratorService.deleteAdministrator(username);
     }
 
     private static AdministratorResponseDto convertModel(Administrator administrator) {
