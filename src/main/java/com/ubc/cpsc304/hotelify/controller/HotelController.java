@@ -29,8 +29,9 @@ public class HotelController {
     private HotelResponseDto createHotel(@RequestBody HotelRequestDto requestDto) throws BadRequestException {
         HotelResponseDto responseDto = new HotelResponseDto();
         Hotel hotel = this.hotelService.createHotel(requestDto);
-        // TODO: what to return??
-        responseDto.setMessage("create success");
+
+        responseDto.setId(hotel.getId());
+        responseDto.setAction("insert");
 
         return responseDto;
     }
@@ -39,18 +40,20 @@ public class HotelController {
     private HotelResponseDto updateHotel(@RequestBody HotelRequestDto requestDto) throws BadRequestException{
         HotelResponseDto responseDto = new HotelResponseDto();
         Hotel hotel = this.hotelService.updateHotelById(requestDto);
-        // TODO: what to return??
-        responseDto.setMessage("update success");
+
+        responseDto.setId(hotel.getId());
+        responseDto.setAction("update");
 
         return responseDto;
     }
-//
+
     @DeleteMapping
     private HotelResponseDto deleteHotel(@RequestBody HotelRequestDto requestDto)throws BadRequestException{
         HotelResponseDto responseDto = new HotelResponseDto();
         Long id = this.hotelService.deleteHotelById(requestDto);
-        // TODO: what to return??
-        responseDto.setMessage("deleted " + id);
+
+        responseDto.setId(id);
+        responseDto.setAction("delete");
 
         return responseDto;
     }
