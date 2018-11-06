@@ -3,6 +3,7 @@ package com.ubc.cpsc304.hotelify;
 import com.ubc.cpsc304.hotelify.exception.BadRequestException;
 import com.ubc.cpsc304.hotelify.exception.ConflictException;
 import com.ubc.cpsc304.hotelify.exception.NotFoundException;
+import com.ubc.cpsc304.hotelify.exception.UnauthorizedException;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class WebExceptionHandler {
 
     private static final String BAD_REQUEST = "400";
+    private static final String UNAUTHORIZED = "401";
     private static final String NOT_FOUND_CODE = "404";
     private static final String CONFLICT = "409";
     private static final String INTERNAL_ERROR_CODE = "500";
@@ -75,6 +77,19 @@ public class WebExceptionHandler {
         Map<String, String> response = new HashMap<>();
 
         response.put(CODE, INTERNAL_ERROR_CODE);
+        response.put(MESSAGE, e.getMessage());
+
+        return response;
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(UnauthorizedException.class)
+    public Map<String, String> handleUnauthorized(Exception e) {
+
+        Map<String, String> response = new HashMap<>();
+
+        response.put(CODE, UNAUTHORIZED);
         response.put(MESSAGE, e.getMessage());
 
         return response;
