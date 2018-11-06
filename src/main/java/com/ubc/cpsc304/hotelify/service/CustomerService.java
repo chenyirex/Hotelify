@@ -3,8 +3,8 @@ package com.ubc.cpsc304.hotelify.service;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
 import com.ubc.cpsc304.hotelify.entity.Address;
 import com.ubc.cpsc304.hotelify.entity.Customer;
-import com.ubc.cpsc304.hotelify.exception.BadRequestException;
 import com.ubc.cpsc304.hotelify.exception.ConflictException;
+import com.ubc.cpsc304.hotelify.exception.NotFoundException;
 import com.ubc.cpsc304.hotelify.repository.CustomerRepository;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -22,14 +22,14 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public Customer findByUsername(String username) throws BadRequestException {
+    public Customer findByUsername(String username) throws NotFoundException {
 
         Optional<Customer> optionalCustomer = this.customerRepository.findById(username);
 
         if (optionalCustomer.isPresent()) {
             return optionalCustomer.get();
         } else {
-            throw new BadRequestException("username does not exist");
+            throw new NotFoundException("Username does not exist");
         }
     }
 

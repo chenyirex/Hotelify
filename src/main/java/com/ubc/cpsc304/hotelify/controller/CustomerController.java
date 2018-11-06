@@ -5,8 +5,8 @@ import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerResponseDto;
 import com.ubc.cpsc304.hotelify.entity.Address;
 import com.ubc.cpsc304.hotelify.entity.Customer;
-import com.ubc.cpsc304.hotelify.exception.BadRequestException;
 import com.ubc.cpsc304.hotelify.exception.ConflictException;
+import com.ubc.cpsc304.hotelify.exception.NotFoundException;
 import com.ubc.cpsc304.hotelify.service.AddressService;
 import com.ubc.cpsc304.hotelify.service.CustomerService;
 import java.util.Objects;
@@ -53,7 +53,7 @@ public class CustomerController {
 
     @GetMapping("/{username}")
     private CustomerResponseDto getCustomer(@PathVariable String username)
-            throws BadRequestException {
+            throws NotFoundException {
 
         Customer customer = this.customerService.findByUsername(username);
 
@@ -64,12 +64,12 @@ public class CustomerController {
     private AddressDto addAddressInformationToCustomer(
             @PathVariable String username,
             @RequestBody AddressDto addressDto
-    ) throws BadRequestException, ConflictException {
+    ) throws ConflictException, NotFoundException {
 
         Customer customer = this.customerService.findByUsername(username);
 
         if (Objects.nonNull(customer.getAddress())) {
-            throw new ConflictException("customer already have an address, use PUT for change");
+            throw new ConflictException("Customer already have an address, use PUT for change");
         }
 
         Address address = this.addressService.addAddress(addressDto);
@@ -83,12 +83,12 @@ public class CustomerController {
     private AddressDto modifyAddressInformationInCustomer(
             @PathVariable String username,
             @RequestBody AddressDto addressDto
-    ) throws BadRequestException, ConflictException {
+    ) throws NotFoundException, ConflictException {
 
         Customer customer = this.customerService.findByUsername(username);
 
         if (Objects.nonNull(customer.getAddress())) {
-            throw new ConflictException("customer does not have an address, use POST");
+            throw new ConflictException("Customer does not have an address, use POST");
         }
 
         Address address = this.addressService.changeAddress(customer.getAddress(), addressDto);
