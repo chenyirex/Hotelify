@@ -67,21 +67,29 @@ public class AdministratorController {
         return AdministratorController.convertModel(administrator);
     }
 
-    @PutMapping
+    @PutMapping(path = "{username}")
     private AdministratorResponseDto updateAdministrator(
+            @PathVariable String username,
             @RequestBody AdministratorRequestDto administratorRequestDto
     ) throws NotFoundException {
 
-        Administrator administrator = this.administratorService.updateAdministrator(
-                administratorRequestDto
-        );
+        Administrator administrator = this.administratorService.findByUsername(username);
 
-        return AdministratorController.convertModel(administrator);
+        administrator.setFirstName(administratorRequestDto.getFirstName());
+        administrator.setLastName(administratorRequestDto.getLastName());
+        administrator.setPassword(administratorRequestDto.getPassword());
+
+        return AdministratorController.convertModel(
+                this.administratorService.updateAdministrator(administrator)
+        );
     }
 
     @DeleteMapping(path = "/{username}")
     private void deleteAdministrator(@PathVariable String username) throws NotFoundException {
-        this.administratorService.deleteAdministrator(username);
+
+        Administrator administrator = this.administratorService.findByUsername(username);
+
+        this.administratorService.deleteAdministrator(administrator);
     }
 
     private static AdministratorResponseDto convertModel(Administrator administrator) {
@@ -89,6 +97,8 @@ public class AdministratorController {
         AdministratorResponseDto administratorResponseDto = new AdministratorResponseDto();
 
         administratorResponseDto.setUsername(administrator.getUsername());
+        administratorResponseDto.setFirstName(administrator.getFirstName());
+        administratorResponseDto.setLastName(administrator.getLastName());
 
         return administratorResponseDto;
     }
