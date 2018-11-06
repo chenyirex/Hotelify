@@ -14,10 +14,6 @@ public class ReviewService {
     public Review createReview(ReviewRequestDto reviewRequestDto){
         Long review_id = reviewRequestDto.getReview_id();
 
-        if (this.reviewRepository.findById(review_id).isPresent()) {
-            // exception throws
-        }
-
         Review toCreateReview = new Review();
 
         toCreateReview.setReview_id(reviewRequestDto.getReview_id());
@@ -26,7 +22,7 @@ public class ReviewService {
         toCreateReview.setComment(reviewRequestDto.getComment());
         toCreateReview.setRating(reviewRequestDto.getRating());
 
-        return reviewRepository.save(toCreateReview);
+        return this.reviewRepository.save(toCreateReview);
     }
 
 }
