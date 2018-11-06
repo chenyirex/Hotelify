@@ -1,8 +1,8 @@
 package com.ubc.cpsc304.hotelify.controller;
 
+import com.ubc.cpsc304.hotelify.controller.dto.AddressDto;
 import com.ubc.cpsc304.hotelify.controller.dto.AuthenticationRequestDto;
 import com.ubc.cpsc304.hotelify.controller.dto.AuthenticationResponseDto;
-import com.ubc.cpsc304.hotelify.controller.dto.AddressDto;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerResponseDto;
 import com.ubc.cpsc304.hotelify.entity.Address;
@@ -10,7 +10,6 @@ import com.ubc.cpsc304.hotelify.entity.Customer;
 import com.ubc.cpsc304.hotelify.exception.ConflictException;
 import com.ubc.cpsc304.hotelify.exception.NotFoundException;
 import com.ubc.cpsc304.hotelify.exception.UnauthorizedException;
-import com.ubc.cpsc304.hotelify.exception.NotFoundException;
 import com.ubc.cpsc304.hotelify.service.AddressService;
 import com.ubc.cpsc304.hotelify.service.CustomerService;
 import java.util.Objects;
