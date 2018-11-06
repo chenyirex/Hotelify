@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Data
 @Entity
 public class Hotel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false, unique = true)

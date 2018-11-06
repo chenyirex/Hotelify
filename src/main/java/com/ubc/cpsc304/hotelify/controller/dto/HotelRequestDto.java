@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class HotelRequestDto {
+
     private Long id;
 
     private String brandName;

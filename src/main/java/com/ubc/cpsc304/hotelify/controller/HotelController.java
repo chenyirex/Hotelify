@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/hotels")
 public class HotelController {
+
     private final HotelService hotelService;
 
     @Autowired
@@ -26,7 +27,8 @@ public class HotelController {
     }
 
     @PostMapping
-    private HotelResponseDto createHotel(@RequestBody HotelRequestDto requestDto) throws BadRequestException {
+    private HotelResponseDto createHotel(@RequestBody HotelRequestDto requestDto)
+            throws BadRequestException {
         HotelResponseDto responseDto = new HotelResponseDto();
         Hotel hotel = this.hotelService.createHotel(requestDto);
 
@@ -37,7 +39,8 @@ public class HotelController {
     }
 
     @PutMapping
-    private HotelResponseDto updateHotel(@RequestBody HotelRequestDto requestDto) throws BadRequestException{
+    private HotelResponseDto updateHotel(@RequestBody HotelRequestDto requestDto)
+            throws BadRequestException {
         HotelResponseDto responseDto = new HotelResponseDto();
         Hotel hotel = this.hotelService.updateHotelById(requestDto);
 
@@ -48,7 +51,8 @@ public class HotelController {
     }
 
     @DeleteMapping
-    private HotelResponseDto deleteHotel(@RequestBody HotelRequestDto requestDto)throws BadRequestException{
+    private HotelResponseDto deleteHotel(@RequestBody HotelRequestDto requestDto)
+            throws BadRequestException {
         HotelResponseDto responseDto = new HotelResponseDto();
         Long id = this.hotelService.deleteHotelById(requestDto);
 

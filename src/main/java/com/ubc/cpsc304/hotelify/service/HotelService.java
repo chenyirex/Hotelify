@@ -23,11 +23,11 @@ public class HotelService {
         this.hotelRepository = hotelRepository;
     }
 
-    public Hotel createHotel(HotelRequestDto requestDto) throws BadRequestException{
+    public Hotel createHotel(HotelRequestDto requestDto) throws BadRequestException {
         String brandName = requestDto.getBrandName();
         Long addressId = requestDto.getAddressId();
 
-        if(brandName==null || addressId==null){
+        if (brandName == null || addressId == null) {
             throw new BadRequestException("brandName and addressId cannot be null");
         }
 
@@ -42,9 +42,9 @@ public class HotelService {
         return this.hotelRepository.save(hotelToInsert);
     }
 
-    public Hotel updateHotelById(HotelRequestDto requestDto) throws BadRequestException{
+    public Hotel updateHotelById(HotelRequestDto requestDto) throws BadRequestException {
         Long id = requestDto.getId();
-        if(id==null){
+        if (id == null) {
             throw new BadRequestException("Id cannot be null");
         }
 
@@ -61,9 +61,9 @@ public class HotelService {
         return this.hotelRepository.save(hotelToUpdate);
     }
 
-    public Long deleteHotelById(HotelRequestDto requestDto) throws BadRequestException{
+    public Long deleteHotelById(HotelRequestDto requestDto) throws BadRequestException {
         Long id = requestDto.getId();
-        if(id==null){
+        if (id == null) {
             throw new BadRequestException("Id cannot be null");
         }
 
