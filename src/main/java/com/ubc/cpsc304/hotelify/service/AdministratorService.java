@@ -27,7 +27,7 @@ public class AdministratorService {
         this.administratorRepository = administratorRepository;
     }
 
-    public Administrator getAdministrator(String username)
+    public Administrator findByUsername(String username)
             throws NotFoundException {
 
         Administrator administrator = this.administratorRepository.findById(username).orElse(null);
@@ -41,7 +41,7 @@ public class AdministratorService {
 
     public void login(AuthenticationRequestDto authenticationRequestDto)
             throws NotFoundException, UnauthorizedException {
-        Administrator administrator = this.getAdministrator(authenticationRequestDto.getUsername());
+        Administrator administrator = this.findByUsername(authenticationRequestDto.getUsername());
 
         if (!authenticationRequestDto.getPassword().equals(administrator.getPassword())) {
             throw new UnauthorizedException("Password mismatch");
@@ -87,7 +87,7 @@ public class AdministratorService {
 
     public void deleteAdministrator(String username) throws NotFoundException {
 
-        Administrator administrator = this.getAdministrator(username);
+        Administrator administrator = this.findByUsername(username);
 
         this.administratorRepository.delete(administrator);
     }

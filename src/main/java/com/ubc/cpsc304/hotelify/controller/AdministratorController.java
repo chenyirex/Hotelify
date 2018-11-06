@@ -40,7 +40,7 @@ public class AdministratorController {
     private AdministratorResponseDto getAdministrator(@PathVariable String username)
             throws NotFoundException {
 
-        Administrator administrator = this.administratorService.getAdministrator(username);
+        Administrator administrator = this.administratorService.findByUsername(username);
 
         return AdministratorController.convertModel(administrator);
     }
