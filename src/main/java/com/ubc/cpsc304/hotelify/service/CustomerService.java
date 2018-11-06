@@ -2,12 +2,13 @@ package com.ubc.cpsc304.hotelify.service;
 
 import com.ubc.cpsc304.hotelify.controller.dto.AuthenticationRequestDto;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
+import com.ubc.cpsc304.hotelify.entity.Address;
 import com.ubc.cpsc304.hotelify.entity.Customer;
 import com.ubc.cpsc304.hotelify.exception.ConflictException;
 import com.ubc.cpsc304.hotelify.exception.NotFoundException;
 import com.ubc.cpsc304.hotelify.exception.UnauthorizedException;
 import com.ubc.cpsc304.hotelify.repository.CustomerRepository;
-import java.util.Objects;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,24 +24,24 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public Customer getCustomer(String username) throws NotFoundException {
-
-        Customer customer = this.customerRepository.findById(username).orElse(null);
-
-        if (Objects.isNull(customer)) {
-            throw new NotFoundException("Requested Customer does not exist");
-        }
-
-        return customer;
-    }
-
     public void login(AuthenticationRequestDto authenticationRequestDto)
             throws NotFoundException, UnauthorizedException {
 
-        Customer customer = this.getCustomer(authenticationRequestDto.getUsername());
+        Customer customer = this.findByUsername(authenticationRequestDto.getUsername());
 
         if (!authenticationRequestDto.getPassword().equals(customer.getPassword())) {
             throw new UnauthorizedException("Password mismatch");
+        }
+    }
+
+    public Customer findByUsername(String username) throws NotFoundException {
+
+        Optional<Customer> optionalCustomer = this.customerRepository.findById(username);
+
+        if (optionalCustomer.isPresent()) {
+            return optionalCustomer.get();
+        } else {
+            throw new NotFoundException("Username does not exist");
         }
     }
 
@@ -62,5 +63,12 @@ public class CustomerService {
         newCustomer.setUsername(customerRequestDto.getUsername());
 
         return this.customerRepository.save(newCustomer);
+    }
+
+    public Customer saveAddress(Customer customer, Address address) {
+
+        customer.setAddress(address);
+
+        return this.customerRepository.save(customer);
     }
 }
