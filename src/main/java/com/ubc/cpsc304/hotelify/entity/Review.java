@@ -14,18 +14,16 @@ public class Review {
     @Column(nullable = false, updatable = false, unique = true)
     private Long review_id;
 
-    @ManyToMany
     @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT ''")
     private String username;
 
-    @ManyToOne
     @Column(nullable = false)
     private Long hotel_id;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT ''")
     private String comment;
 
-    @Column
+    @Column(nullable = false)
     private Double rating;
 
 }
