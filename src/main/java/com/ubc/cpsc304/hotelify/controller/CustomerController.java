@@ -69,7 +69,7 @@ public class CustomerController {
         Customer customer = this.customerService.findByUsername(username);
 
         if (Objects.nonNull(customer.getAddress())) {
-            throw new ConflictException("Customer already have an address, use PUT for change");
+            throw new ConflictException("Customer already has an address, use PUT for change");
         }
 
         Address address = this.addressService.addAddress(addressDto);
