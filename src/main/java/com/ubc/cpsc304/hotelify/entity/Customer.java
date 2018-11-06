@@ -3,30 +3,18 @@ package com.ubc.cpsc304.hotelify.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * The entity class for customer.
  * Created by ao on 2018-10-31
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
-public class Customer {
-
-    @Id
-    @Column(nullable = false, updatable = false, unique = true)
-    private String username;
-
-    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT ''")
-    private String firstName;
-
-    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT ''")
-    private String lastName;
-
-    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT ''")
-    private String password;
+public class Customer extends User {
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT ''")
     private String email;

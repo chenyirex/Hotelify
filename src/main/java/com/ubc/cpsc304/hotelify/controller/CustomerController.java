@@ -1,11 +1,15 @@
 package com.ubc.cpsc304.hotelify.controller;
 
+import com.ubc.cpsc304.hotelify.controller.dto.AuthenticationRequestDto;
+import com.ubc.cpsc304.hotelify.controller.dto.AuthenticationResponseDto;
 import com.ubc.cpsc304.hotelify.controller.dto.AddressDto;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerRequestDto;
 import com.ubc.cpsc304.hotelify.controller.dto.CustomerResponseDto;
 import com.ubc.cpsc304.hotelify.entity.Address;
 import com.ubc.cpsc304.hotelify.entity.Customer;
 import com.ubc.cpsc304.hotelify.exception.ConflictException;
+import com.ubc.cpsc304.hotelify.exception.NotFoundException;
+import com.ubc.cpsc304.hotelify.exception.UnauthorizedException;
 import com.ubc.cpsc304.hotelify.exception.NotFoundException;
 import com.ubc.cpsc304.hotelify.service.AddressService;
 import com.ubc.cpsc304.hotelify.service.CustomerService;
@@ -28,6 +32,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/customers")
 public class CustomerController {
 
+    private static final String CUSTOMER_TYPE = "customer";
+
     private final CustomerService customerService;
     private final AddressService addressService;
 
@@ -40,6 +46,16 @@ public class CustomerController {
     @GetMapping
     private String getCustomer() {
         return "Hello world";
+    }
+
+    @PostMapping("/login")
+    private AuthenticationResponseDto login(
+            @RequestBody AuthenticationRequestDto authenticationRequestDto
+    ) throws NotFoundException, UnauthorizedException {
+
+        this.customerService.login(authenticationRequestDto);
+
+        return new AuthenticationResponseDto(CUSTOMER_TYPE);
     }
 
     @PostMapping
