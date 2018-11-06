@@ -67,10 +67,7 @@ public class HotelService {
             throw new BadRequestException("Id cannot be null");
         }
 
-        // handle EntityNotFoundException
-        Hotel hotelToDelete = this.hotelRepository.getOne(id);
-
-        this.hotelRepository.delete(hotelToDelete);
+        this.hotelRepository.deleteById(id);
         return id;
 
     }
