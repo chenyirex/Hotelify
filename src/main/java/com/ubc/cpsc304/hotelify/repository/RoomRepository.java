@@ -2,6 +2,7 @@ package com.ubc.cpsc304.hotelify.repository;
 
 import com.ubc.cpsc304.hotelify.entity.Room;
 import com.ubc.cpsc304.hotelify.entity.compositeIdClass.RoomId;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -10,4 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface RoomRepository extends JpaRepository<Room, RoomId> {
 
+    List<Room> findByHotelId(Long hotelId);
 }
