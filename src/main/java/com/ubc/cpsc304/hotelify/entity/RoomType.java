@@ -32,4 +32,8 @@ public class RoomType {
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;
+
+    //    @ManyToOne
+//    @JoinColumn(name = "hotel_id", referencedColumnName = "id")
+//    private Hotel hotel;
 }

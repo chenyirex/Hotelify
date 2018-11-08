@@ -24,6 +24,8 @@ public class RoomTypeService {
         return this.roomTypeRepository.findAll();
     }
 
+    //NEED getAllRoomTypesForAHotel
+
     public RoomType addRoomType(RoomType roomType) {
         return this.roomTypeRepository.save(roomType);
     }
